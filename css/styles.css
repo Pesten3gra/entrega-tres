@@ -1,172 +1,366 @@
-/* Root para mantener una paleta de colores clara */
-:root {
-    --background-color: #B3B6B7;
-    --links-color: #2B2118;
-    --headers-color: #6F1A07;
-    --text-color: #AF9164;
+/* RESET */
+* {
+  box-sizing: border-box;
 }
 
 body {
-    margin: 0;
-    padding: 0;
-    background-color: var(--background-color);
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+  margin: 0;
+  padding: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  min-height: 100vh;
+  /* el body ocupa toda la pantalla */
 }
 
+/* BODY PRINCIPAL */
+body {
+  padding-top: 70px;
+  /* padding-top: 70px evita que el contenido quede detrás del header fijo
+     El header tiene height: 70px, então necesitamos este padding */
+  padding-bottom: 50px;
+  /* padding-bottom: 50px evita que el contenido quede detrás del footer fijo */
+  background-color: #0a0a0a;
+  color: #e0e0e0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.6;
+}
+
+/* ==========================================
+   HEADER - Barra de navegación fija
+   ========================================== */
 header {
-    padding: 0.5vh;
-    text-align: center;
-    font-size: 25px;
-    font-weight: 600;
-    font-style: italic;
-    color: var(--headers-color);
+  position: fixed;
+  /* position: fixed fixeda el elemento en su lugar
+     Aunque hagamos scroll, el header siempre será visible */
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #0a0a0a;
+  border-bottom: 1px solid #2d2d2d;
+  z-index: 1000;
+  /* z-index: 1000 asegura que el header esté POR ENCIMA de todo
+     Números más altos = más arriba (sobre otros elementos) */
+  padding: 0 20px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* Flexbox: logo a la izquierda, nav a la derecha */
 }
 
-ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: inline-flex;
+/* Checkbox oculto para el menú hamburguesa (checkbox hack) */
+header .menu-toggle {
+  display: none;
+  /* display: none oculta el checkbox
+     Pero sigue funcionando para marcar/desmarcar */
 }
 
-a {
-    padding: 0.5vh;
-    color: var(--links-color);
+header .logo {
+  color: #ffd700;
+  font-style: italic;
+  font-weight: 700;
+  font-size: 24px;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  z-index: 1001;
+  transition: color 0.3s ease;
 }
 
-/* cambie h3 por section p para mantener el estilo del header mal utilizado previamente */
-section p {
-    color: var(--text-color);
-    font-size: 24px;
-    text-align: center;
-    font-style: normal;
+header .logo:hover {
+  color: #ffea00;
 }
 
-/* cambie el h5 por un section.text (Class) p para mantener el estilo utilizado previamente */
-section.text p {
-    color: var(--text-color);
-    font-size: 18px;
-    text-align: center;
-    font-style: normal;
+/* Icono hamburguesa (3 rayas) */
+header .hamburger {
+  display: none;
+  /* Oculto en desktop, visible solo en mobile (@media) */
+  flex-direction: column;
+  justify-content: space-between;
+  width: 28px;
+  height: 22px;
+  cursor: pointer;
+  z-index: 1001;
 }
 
-/* Como la mayoria de la pagina son imagenes, en esto use la mayoria del tiempo */
-.pictures {
-    display: grid;
+header .hamburger span {
+  display: block;
+  width: 100%;
+  height: 3px;
+  background-color: #ffd700;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+/* Menú de navegación */
+header .nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 30px;
+  display: flex;
+  /* display: flex hace que los items estén en horizontal */
+}
+
+header .nav a {
+  color: #ffd700;
+  text-decoration: none;
+  font-size: 15px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: color 0.3s ease;
+  position: relative;
+  /* position: relative es necesario para posicionar el ::after */
+}
+
+/* 
+   PSEUDO-ELEMENTO ::after
+   Crea un elementovirtual después del contenido del enlace
+   Se usa aquí para el SUBRAYADO ANIMADO
+*/
+header .nav a::after {
+  content: "";
+  /* content: "" es necesario para que ::after funcione
+     Crea un elemento vacío solo para diseño */
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  /* width: 0 = comienza invisible, asi el subrayado no se ve */
+  height: 2px;
+  background-color: #ffea00;
+  transition: width 0.3s ease;
+  /* transition: width 0.3s ease = animación suave de 0 a 100% */
+}
+
+header .nav a:hover,
+header .nav a.current-page {
+  color: #ffea00;
+}
+
+header .nav a:hover::after,
+header .nav a.current-page::after {
+  width: 100%;
+  /* width: 100% = subraya completo cuando hay hover o es página actual */
+}
+
+/* ==========================================
+   MEDIA QUERIES - Diseño Responsive
+   ========================================== */
+
+/* Mobile/Tablet: menos de 992px (hamburger menu) */
+@media screen and (max-width: 991px) {
+
+  /* Muestra el icono hamburguesa */
+  header .hamburger {
+    display: flex;
+  }
+
+  /* Transforma el menú en panel lateral */
+  header .nav {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    /* right: -100% = oculto a la derecha de la pantalla */
+    width: 70%;
+    max-width: 300px;
+    height: 100vh;
+    /* height: 100vh = ocupa toda la altura del viewport */
+    background-color: #1a1a1a;
+    padding-top: 100px;
+    transition: right 0.3s ease;
+    /* transition: animación suave cuando el menú aparece/desaparece */
+    box-shadow: -5px 0 20px rgba(0, 0, 0, 0.5);
+    border-left: 1px solid #2d2d2d;
+  }
+
+  header .nav ul {
+    flex-direction: column;
+    /* flex-direction: column = items uno debajo del otro */
     align-items: center;
-    justify-content: center;
-    grid-template-columns: auto auto auto;
-    grid-template-rows: auto auto auto;
-    margin-left: 20px;
-    margin-right: 20px;
-    max-width: 100%;
-    gap: 0.5vh;
-    flex-wrap: wrap;
-    overflow: hidden;
+    gap: 25px;
+    padding: 20px;
+  }
+
+  header .nav a {
+    font-size: 16px;
+  }
+
+  header .nav a::after {
+    display: none;
+    /* Oculta el subrayado animado en móvil */
+  }
+
+  /* CHECKBOX HACK */
+  header .menu-toggle:checked~.nav {
+    right: 0;
+    /* right: 0 = mueva el menú a la vista */
+  }
+
+  section p {
+    font-size: 16px;
+  }
+}
+
+/* ==========================================
+   MAIN - Contenido principal
+   ========================================== */
+main {
+  max-width: 1400px;
+  margin: 0 auto;
+  /* margin: 0 auto = centra horizontalmente
+     0 = sin margen arriba/abajo
+     auto = margen igual a ambos lados */
+  padding: 30px 20px;
+  min-height: calc(100vh - 70px - 50px);
+  /* calc(100vh - 70px - 50px) = calcula:
+     100% del viewport - header - footer
+     Asegura que el contenido no quede detrás de header/footer */
+}
+
+/* ==========================================
+   SECTIONS
+   ========================================== */
+section {
+  margin-bottom: 30px;
+}
+
+section p {
+  color: #e0e0e0;
+  font-size: 20px;
+  text-align: center;
+  margin: 20px 0;
+}
+
+section.text p {
+  font-size: 16px;
+  text-align: left;
+  line-height: 1.8;
+  color: #888888;
+}
+
+/* Galería de fotos con CSS Grid, imagenes de tamaño fijo para mejor performance, la unica solucion extra seria disminuir la calidad de las imagenes*/
+.pictures {
+  display: grid;
+  /* CSS Grid tradicional */
+  grid-template-columns: repeat(5, 1fr);
+  /* 5 columnas en desktop */
+  gap: 15px;
+  margin-top: 30px;
 }
 
 .pictures>img {
-    display: inline-block;
-    justify-content: center;
-    height: 100%;
-    width: 30vw;
-    transition: .4s ease;
-    border-radius: 10px;
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  display: block;
+  border-radius: 4px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
 }
 
 .pictures>img:hover {
-    transform: scale(1.8);
+  transform: scale(1.02);
+  box-shadow: 0 8px 25px rgba(255, 215, 0, 0.2);
 }
 
-.pictures.portraits>img {
-    padding: 10px;
-    width: auto;
-    height: 60vh;
-    border-radius: 20px;
+/* Breakpoints responsive */
+
+/* Desktop (992px - 1199px): 4 columnas */
+@media (max-width: 1199px) {
+  .pictures {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
 
-.pictures.myportrait>img {
-    padding: 100px;
-    width: auto;
-    height: 30vh;
-    position: relative;
-    border-radius: 300px;
+/* Tablet (601px - 991px): 3 columnas */
+@media (max-width: 991px) {
+  .pictures {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
-hr {
-    border: 0;
+/* Mobile (≤600px): 2 columnas */
+@media (max-width: 600px) {
+  .pictures {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .pictures>img {
+    height: 180px;
+  }
 }
 
+/* ==========================================
+   ABOUT CONTENT
+   ========================================== */
+.about-content {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.about-content img {
+  max-width: 100%;
+  /* max-width: 100% = no excede el ancho del contenedor
+     Hace la imagen responsive */
+  height: auto;
+  /* height: auto = mantiene proporción de la imagen */
+  margin-top: 30px;
+  border-radius: 8px;
+  border: 2px solid #2d2d2d;
+}
+
+.about-content p {
+  text-align: left;
+  color: #888888;
+  line-height: 1.8;
+}
+
+/* ==========================================
+   FOOTER - Pie de página fijo
+   ========================================== */
 footer {
-    text-align: center;
-    font-size: 14px;
-    color: var(--text-color);
-    padding: 1vh;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #0a0a0a;
+  border-top: 1px solid #2d2d2d;
+  text-align: center;
+  font-size: 13px;
+  color: #888888;
+  padding: 15px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
 }
 
-/* mq para pantallas menores a 600px */
-@media screen and (max-width: 600px) {
-    h1 {
-        font-size: 1.5rem;
-    }
+footer a {
+  color: #ffd700;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
 
-    body {
-        background-color: bisque
-    }
+footer a:hover {
+  color: #ffea00;
+}
 
-    section p {
-        font-size: 1rem;
-        color: darkred;
-    }
+/* ==========================================
+   UTILIDADES
+   ========================================== */
 
-    .pictures {
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-template-rows: 1fr 1fr 1fr;
-        grid-template-areas: "pictures   pictures pictures";
-        border-radius: 10px;
-    }
-
-    .pictures {
-        grid-area: pictures;
-    }
-
-    .pictures>img {
-        display: inline-block;
-        justify-content: center;
-        height: 100%;
-        width: 30vw;
-        transition: .4s ease;
-        border-radius: 10px;
-    }
-
-    /* imagenes verticales deshabilitadas para que sea mas simple  */
-    .pictures.portraits>img {
-        display: none;
-    }
-
-    header.header {
-        font-size: 1rem;
-        background-color: whitesmoke;
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-template-rows: 1fr 50px;
-        grid-template-areas: "header header header"
-            "nav nav nav";
-        justify-items: center;
-        align-content: stretch;
-        justify-content: stretch;
-        align-items: center;
-        margin: 0.5vh;
-    }
-
-
-    .header {
-        grid-area: header;
-    }
-
-    .nav {
-        grid-area: nav;
-    }
-
+/* Clase para ocultar visualmente pero mantener accesible
+   Útil para lectores de pantalla (accesibilidad) */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
 }

@@ -1,59 +1,66 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
-    <link rel="stylesheet" href="../css/styles.css">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Analogico</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/styles.css">
+  <title>Analog Flop - Fotografía Analógica</title>
 </head>
 
 <body>
-    <!-- Header con menu de navegacion incluido, presente en todos los html -->
-    <div class="grid-container">
-        <header class="header">
-            <h1>Analog Flop</h1>
-            <hr>
-            <navc class="nav">
-                <ul>
-                    <li><a href="../index.html">Inicio</a></li>
-                    <li><a class="current-page">Fotografía Analógica</a></li>
-                    <li><a href="../pages/fotografia-digital.html">Fotografía Digital</a></li>
-                    <li><a href="../pages/acerca-de.html">Acerca de</a></li>
-                </ul>
-                </nav>
-        </header>
-    </div>
-    <hr>
-    <main>
-        <section>
-            <!-- Descripción de la fotografía analógica, o mi experiencia -->
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis natus veritatis expedita cupiditate
-                nesciunt asperiores praesentium deleniti corrupti quibusdam ut, velit dolore nihil explicabo quia
-                incidunt
-                quaerat reprehenderit porro saepe?</p>
-        </section>
-        <!-- Inicio de imagenes -->
-        <section class="pictures">
-            <img src="../img/ap/R1-01699-0008 (1).jpg" alt="ap1">
-            <img src="../img/ap/R1-01699-0009 (1).jpg" alt="ap2">
-            <img src="../img/ap/R1-01699-0011 (1).jpg" alt="ap3">
-            <img src="../img/ap/R1-01699-0012 (1).jpg" alt="ap4">
-            <img src="../img/ap/R1-01699-0036.JPG" alt="ap5">
-            <img src="../img/ap/R1-01699-0013 (1).jpg" alt="ap6">
-            <img src="../img/ap/R1-01699-0018 (1).jpg" alt="ap7">
-            <img src="../img/ap/R1-01699-0027 (1).jpg" alt="ap8">
-            <img src="../img/ap/R1-01699-0031 (1).jpg" alt="ap9">
-        </section>
-        <!-- No conzoco una forma (Aun) para que las fotos en un formato vertical queden bien, vi algo online pero como no lo pude aplicar, decidi que la mejor opcion estetica era crear una seccion para esas fotos y modificarla a parte -->
-        <section class="pictures portraits">
-            <img src="../img/ap/R1-01699-0032 (1).jpg" alt="ap10">
-            <img src="../img/ap/R1-01699-0028 (1).jpg" alt="ap11">
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2026 Analog Flop. Todos los derechos reservados.</p>
-        <!-- Para facilitar la navegacion, se agrega un boton que sirva para ir al tope de la pagina  -->
-        <a href="#">Arriba</a>
-    </footer>
+
+  <header>
+    <a href="../index.html" class="logo">Analog Flop</a>
+
+    <!-- Checkbox hack para menú móvil sin Js, que solo se ve en telefonos y tablets -->
+    <input type="checkbox" id="menu-toggle" class="menu-toggle">
+
+    <label for="menu-toggle" class="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </label>
+
+    <nav class="nav">
+      <ul>
+        <li><a href="../index.html">Inicio</a></li>
+        <li><a href="fotografia-analogica.html" class="current-page">Fotografía Analógica</a></li>
+        <li><a href="fotografia-digital.html">Fotografía Digital</a></li>
+        <li><a href="acerca-de.html">Acerca de</a></li>
+      </ul>
+    </nav>
+  </header>
+
+
+  <main>
+    <section>
+      <p>El costo del rollo y el revelado vale la pena.</p>
+    </section>
+
+    <section class="pictures">
+      <img src="../img/ap/R1-01699-0008 (1).jpg" alt="Foto analógica 1" loading="lazy">
+      <img src="../img/ap/R1-01699-0009 (1).jpg" alt="Foto analógica 2" loading="lazy">
+      <img src="../img/ap/R1-01699-0011 (1).jpg" alt="Foto analógica 3" loading="lazy">
+      <img src="../img/ap/R1-01699-0012 (1).jpg" alt="Foto analógica 4" loading="lazy">
+      <img src="../img/ap/R1-01699-0013 (1).jpg" alt="Foto analógica 5" loading="lazy">
+      <img src="../img/ap/R1-01699-0018 (1).jpg" alt="Foto analógica 6" loading="lazy">
+      <img src="../img/ap/R1-01699-0027 (1).jpg" alt="Foto analógica 7" loading="lazy">
+      <img src="../img/ap/R1-01699-0028 (1).jpg" alt="Foto analógica 8" loading="lazy">
+      <img src="../img/ap/R1-01699-0031 (1).jpg" alt="Foto analógica 9" loading="lazy">
+      <img src="../img/ap/R1-01699-0032 (1).jpg" alt="Foto analógica 10" loading="lazy">
+      <img src="../img/ap/R1-01699-0036.JPG" alt="Foto analógica 11" loading="lazy">
+      <img src="../img/ap/000012.jpg" alt="Foto analógica 12" loading="lazy">
+      <img src="../img/ap/000014.jpg" alt="Foto analógica 13" loading="lazy">
+      <img src="../img/ap/000015.jpg" alt="Foto analógica 14" loading="lazy">
+      <img src="../img/ap/000018.jpg" alt="Foto analógica 15" loading="lazy">
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Analog Flop. Todos los derechos reservados.</p>
+    <a href="#">Arriba</a>
+  </footer>
 </body>
+
+</html>

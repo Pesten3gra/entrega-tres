@@ -1,0 +1,288 @@
+@import 'utilities/variables';
+@import 'utilities/mixin';
+@import 'base/reset';
+
+// Body y tipografía
+
+body {
+  padding-top: $header-height;
+  padding-bottom: $footer-height;
+  background-color: $bg-color;
+  color: $text-color;
+  font-family: $font-stack;
+  line-height: 1.6;
+}
+
+// Header
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: $header-bg;
+  border-bottom: 1px solid $smoke;
+  z-index: 1000;
+  padding: 0 20px;
+  height: $header-height;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .menu-toggle {
+    display: none;
+  }
+
+  .logo {
+    color: $headers-color;
+    font-style: italic;
+    font-weight: 700;
+    font-size: 24px;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    z-index: 1001;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: $yellow-bright;
+    }
+  }
+
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 28px;
+    height: 22px;
+    cursor: pointer;
+    z-index: 1001;
+
+    span {
+      display: block;
+      width: 100%;
+      height: 3px;
+      background-color: $yellow;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    @include mobile {
+      display: flex;
+    }
+  }
+
+  .nav {
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      gap: 30px;
+      display: flex;
+    }
+
+    a {
+      color: $links-color;
+      text-decoration: none;
+      font-size: 15px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: color 0.3s ease;
+      position: relative;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -4px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: $yellow-bright;
+        transition: width 0.3s ease;
+      }
+
+      &:hover,
+      &.current-page {
+        color: $yellow-bright;
+
+        &::after {
+          width: 100%;
+        }
+      }
+    }
+
+    // Checkbox hack para menú hamburguesa en tablet y movil
+    @include mobile {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 70%;
+      max-width: 300px;
+      height: 100vh;
+      background-color: $bg-secondary;
+      padding-top: 100px;
+      transition: right 0.3s ease;
+      box-shadow: -5px 0 20px rgba(0, 0, 0, 0.5);
+      border-left: 1px solid $smoke;
+
+      ul {
+        flex-direction: column;
+        align-items: center;
+        gap: 25px;
+        padding: 20px;
+      }
+
+      a {
+        font-size: 16px;
+
+        &::after {
+          display: none;
+        }
+      }
+
+      .menu-toggle:checked~.nav {
+        right: 0;
+      }
+    }
+  }
+}
+
+// Main
+main {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 30px 20px;
+  min-height: calc(100vh - #{$header-height} - #{$footer-height});
+}
+
+// Sections y párrafos
+
+section {
+  margin-bottom: 30px;
+
+  p {
+    color: $text-color;
+    font-size: 20px;
+    text-align: center;
+    margin: 20px 0;
+  }
+
+  &.text p {
+    font-size: 16px;
+    text-align: left;
+    line-height: 1.8;
+    color: $text-muted;
+  }
+
+  @include mobile {
+    p {
+      font-size: 16px;
+    }
+  }
+}
+
+// Pics
+
+.pictures {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 15px;
+  margin-top: 30px;
+
+  >img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    display: block;
+    border-radius: 4px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+
+    &:hover {
+      transform: scale(1.02);
+      box-shadow: 0 8px 25px rgba($yellow, 0.2);
+    }
+  }
+
+  @media (max-width: 1199px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  @media (max-width: 991px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (max-width: 600px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+
+    >img {
+      height: 180px;
+    }
+  }
+}
+
+// Acerca de
+
+.about-content {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+
+  img {
+    max-width: 100%;
+    height: auto;
+    margin-top: 30px;
+    border-radius: 8px;
+    border: 2px solid $smoke;
+  }
+
+  p {
+    text-align: left;
+    color: $text-muted;
+    line-height: 1.8;
+  }
+}
+
+// Footer
+
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: $header-bg;
+  border-top: 1px solid $smoke;
+  text-align: center;
+  font-size: 13px;
+  color: $text-muted;
+  padding: 15px;
+  height: $footer-height;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+
+  a {
+    color: $yellow;
+    text-decoration: none;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: $yellow-bright;
+    }
+  }
+}
+
+// UTILIDADES
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}

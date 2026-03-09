@@ -1,0 +1,13 @@
+// BREAKPOINTS
+
+@mixin mobile {
+  @media screen and (max-width: ($mobile - 1)) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media screen and (min-width: $mobile) {
+    @content;
+  }
+}
