@@ -3,4 +3,4 @@ Allow: /
 Sitemap: https://analogflop.com/sitemap.xml
 
 
-file que indica a que paginas pueden acceder los crawlers
+file que indica a que paginas pueden acceder los crawlers, hecho con placeholder
