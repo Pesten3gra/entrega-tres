@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://analogflop.com/sitemap.xml
